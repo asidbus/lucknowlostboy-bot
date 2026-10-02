@@ -20,7 +20,7 @@ jobs:
         env:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          PUBLIC_VIDEO_BASE: https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/videos
+          PUBLIC_VIDEO_BASE: https://raw.githubusercontent.com/asidbus/lucknowlostboy-bot/main/videos
           CAPTION: "Lost in Lucknow, found in every city 🌿 Which city next? 👇 #lucknow #citydiaries"
       - name: Commit posted log
         run: |
