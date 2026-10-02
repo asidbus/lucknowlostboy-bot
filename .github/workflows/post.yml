@@ -1,0 +1,32 @@
+name: Auto Post 4x Daily
+on:
+  schedule:
+    - cron: '30 0 * * *'   # 6:00 AM IST
+    - cron: '30 6 * * *'   # 11:30 AM IST ~12pm
+    - cron: '30 12 * * *'  # 6:00 PM IST
+    - cron: '30 15 * * *'  # 9:00 PM IST
+  workflow_dispatch:  # manual run button
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - run: python post_reel.py
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          PUBLIC_VIDEO_BASE: https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/videos
+          CAPTION: "Lost in Lucknow, found in every city 🌿 Which city next? 👇 #lucknow #citydiaries"
+      - name: Commit posted log
+        run: |
+          git config user.name "bot"
+          git config user.email "bot@bot.com"
+          git add posted.json || true
+          git commit -m "update posted log" || true
+          git push || true
+
